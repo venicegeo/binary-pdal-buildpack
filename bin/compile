@@ -1,2 +1,23 @@
-#! /bin/sh
+#!/bin/bash
+
+set -eo pipefail
+
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+mkdir -p "$1" "$2"
+build=$(cd "$1/" && pwd)
+cache=$(cd "$2/" && pwd)
+buildpack=$(cd "$(dirname $0)/.." && pwd)
+
+step() {
+    echo "$steptxt $@"
+}
+
+# Add pdal binary and libraries to path
+step "Adding pdal support"
+tar xzf $buildpack/vendor/pdal.tar.gz -C $build/vendor/
+step "Adding gdal data"
+tar xzf $buildpack/vendor/gdaldata.tar.gz -C $build/vendor/
+
 exit 0
