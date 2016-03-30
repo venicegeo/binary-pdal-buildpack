@@ -17,7 +17,5 @@ step() {
 # Add pdal binary and libraries to path
 step "Adding pdal support"
 tar xzf $buildpack/vendor/pdal.tar.gz -C $build/
-step "Adding gdal data"
-tar xzf $buildpack/vendor/gdaldata.tar.gz -C $build/
 
 exit 0
