@@ -44,11 +44,12 @@ help:
 	@echo "make points2grid"
 	@echo "make prc"
 	@echo "make vdatum"
+	@echo "make vo"
 	@echo ""
 
 .PHONY: gdal hexer laszip nitro libgeotiff laz-perf points2grid eigen pcl pdal prc vdatum archive
 
-all: init eigen hexer laszip laz-perf libgeotiff nitro pcl gdal vdatum points2grid pdal prc archive
+all: init eigen hexer laszip laz-perf libgeotiff nitro pcl gdal vdatum points2grid pdal prc vo archive
 
 # All of our targets assume an output directory structure is in place. It is
 # created here.
@@ -135,6 +136,12 @@ pdal: init
 # build prc in cflinuxfs2
 prc: init
 	$(call run_script,prc.sh)
+	$(call copy_changed_libs)
+	$(call rm_last_image)
+
+# build vo in cflinuxfs2
+vo: init
+	$(call run_script,vo.sh)
 	$(call copy_changed_libs)
 	$(call rm_last_image)
 
